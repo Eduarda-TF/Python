@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Calculadora</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+<h1>Calculadora</h1>
+
+<div id="calculator">
+
+    <form method="POST" action="{{ url_for('index') }}">
+
+        {% set op = request.form.get('operacao', '+') %}
+
+        <div class="form-grupo">
+            <label for="num1">
+                {% if op == 'bhaskara' %}
+                    Valor de A
+                {% else %}
+                    Primeiro número
+                {% endif %}
+            </label>
+
+            <input type="number"
+                   id="num1"
+                   name="num1"
+                   step="any"
+                   required
+                   value="{{ request.form.get('num1', '') }}">
+        </div>
+
+        <div class="form-grupo">
+            <label for="operacao">Operação</label>
+
+            <select id="operacao"
+                    name="operacao"
+                    onchange="this.form.submit()">
+
+                <option value="+" {% if op == '+' %}selected{% endif %}>+ Somar</option>
+                <option value="-" {% if op == '-' %}selected{% endif %}>− Subtrair</option>
+                <option value="*" {% if op == '*' %}selected{% endif %}>× Multiplicar</option>
+                <option value="/" {% if op == '/' %}selected{% endif %}>÷ Dividir</option>
+                <option value="**" {% if op == '**' %}selected{% endif %}>^ Potência</option>
+                <option value="sqrt" {% if op == 'sqrt' %}selected{% endif %}>√ Raiz quadrada</option>
+                <option value="bhaskara" {% if op == 'bhaskara' %}selected{% endif %}>Bhaskara</option>
+                <option value="log" {% if op == 'log' %}selected{% endif %}>Log</option>
+            </select>
+        </div>
+
+        {% if op != 'sqrt' %}
+
+        <div class="form-grupo">
+            <label for="num2">
+                {% if op == 'bhaskara' %}
+                    Valor de B
+                {% else %}
+                    Segundo número
+                {% endif %}
+            </label>
+
+            <input type="number"
+                   id="num2"
+                   name="num2"
+                   step="any"
+                   required
+                   value="{{ request.form.get('num2', '') }}">
+        </div>
+
+        {% endif %}
+
+        {% if op == 'bhaskara' %}
+
+        <div class="form-grupo">
+            <label for="num3">Valor de C</label>
+
+            <input type="number"
+                   id="num3"
+                   name="num3"
+                   step="any"
+                   required
+                   value="{{ request.form.get('num3', '') }}">
+        </div>
+
+        {% endif %}
+
+        <button type="submit">Calcular</button>
+
+    </form>
+
+    {% if etapas %}
+    <div class="resultado">
+        <strong>Resposta do servidor (Python):</strong>
+
+        <div>{{ etapas }}</div>
+
+        <div>Resultado: {{ resultados }}</div>
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('index') }}">
+        Limpar / nova conta
+    </a>
+
+</div>
+
+</body>
+</html>
+
