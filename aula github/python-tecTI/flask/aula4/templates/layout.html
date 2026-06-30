@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+    <div class="menu">
+
+        <ul>
+            <li><a href="home.html">Home</a></li>
+            <li><a href="page1.html">Projetos Futuros</a></li>
+            <li><a href="page2.html">Hobbies</a></li>
+            <li><a href="page3.html">Vida em TI</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+
+    </div>
+
+    <div class="content">
+
+        {% block content %}
+        {% endblock %}
+
+    </div>
+
+</body>
+</html>
