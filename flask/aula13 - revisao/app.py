@@ -15,12 +15,15 @@ def criar_app():
     )
 
     pasta = os.path.abspath(os.path.dirname(__file__))
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///" + os.path.join(pasta, "jogadores.db")
+    app.config["SQLALCHEMY_DATABASE_URI"] = (
+        "sqlite:///" + os.path.join(pasta, "jogadores.db")
+    )
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
-    app.register_blueprint(dashboard_bp)
 
+    app.register_blueprint(dashboard_bp)
+    app.register_blueprint(jogador_bp)
 
     with app.app_context():
         db.create_all()

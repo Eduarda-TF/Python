@@ -1,4 +1,5 @@
-{% extends " %}
+{% extends "layout.html" %}
+
 {% block title %}Painel — Jogadores{% endblock %}
 
 {% block content %}
@@ -11,5 +12,9 @@
     </div>
 </div>
 
-<p><a class="btn" href="{{ url_for('jogador.index') }}">Ver jogadores</a></p>
+<p>
+    <a class="btn" href="{{ url_for('jogador.index') }}">
+        Ver jogadores
+    </a>
+</p>
 {% endblock %}
